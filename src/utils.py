@@ -13,7 +13,7 @@ def calc_event_weight(days_before: int):
 
 def cleanup_beo_df(
     beo_df: pd.DataFrame,
-    day_of_event: datetime,
+    day_of_event: datetime.datetime,
     non_monday_event_weight: float,
     max_days_past: int = 100,
 ) -> pd.DataFrame:

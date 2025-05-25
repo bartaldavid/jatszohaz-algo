@@ -13,6 +13,7 @@ from src.utils import (
     clean_kimittud_df,
     cleanup_beo_df,
 )
+import dotenv
 
 app = Flask(__name__)
 
@@ -63,9 +64,12 @@ def print_names():
     weights = calc_beo_weights(beo)
 
     try:
-        gm_combinations["beo_weights"] = gm_combinations.apply(
-            lambda r: weights[list(r.name)].sum(), axis=1
-        )
+
+        def safe_weight_sum(r):
+            names = list(r.name) if isinstance(r.name, (list, tuple)) else [r.name]
+            return weights[names].sum()
+
+        gm_combinations["beo_weights"] = gm_combinations.apply(safe_weight_sum, axis=1)
     except Exception as e:
         return f"Error applying weights: {e.with_traceback(e.__traceback__)}"
 
@@ -101,4 +105,5 @@ def print_names():
 
 
 if __name__ == "__main__":
+    dotenv.load_dotenv(".env")
     app.run(debug=True)
