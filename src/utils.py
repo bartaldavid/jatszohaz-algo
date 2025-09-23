@@ -53,7 +53,7 @@ def clean_kimittud_df(kimittud_df: pd.DataFrame):
     df = kimittud_df.copy()
     df.drop(
         [
-            "Hot shit?",
+            "Trending?",
             "HIÁNY",
             "Co-op",
             "Gyerek",
