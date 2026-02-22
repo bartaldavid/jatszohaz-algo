@@ -19,7 +19,7 @@ def cleanup_beo_df(
 ) -> pd.DataFrame:
     # filtered = beo_df.drop(beo_df.columns[[1, 2, -1, -2, -3, -4, -5]], axis=1)
     filtered = beo_df.copy()  # Create a copy to avoid modifying the original DataFrame
-    filtered = filtered.iloc[4:]  # Remove first 3 rows more efficiently
+    filtered = filtered[filtered["Dátum"].astype(str).str.match(r"^20\d{2}")]
 
     min_date = day_of_event - datetime.timedelta(days=max_days_past)
 
