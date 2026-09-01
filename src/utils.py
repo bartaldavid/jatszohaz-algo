@@ -23,8 +23,11 @@ def cleanup_beo_df(
 
     min_date = day_of_event - datetime.timedelta(days=max_days_past)
 
-    filtered["Dátum"] = pd.to_datetime(filtered["Dátum"], format="%Y.%m.%d.")
+    filtered["Dátum"] = pd.to_datetime(
+        filtered["Dátum"], format="%Y.%m.%d.", errors="coerce"
+    )
 
+    filtered = filtered[filtered["Dátum"].notna()]
     filtered = filtered[filtered["Dátum"] > min_date]
     filtered = filtered[filtered["Dátum"] < day_of_event]
 
